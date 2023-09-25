@@ -97,15 +97,19 @@ function revealRiddle() {
     enigmaText.textContent = enigma;
 }
 
-// Função para mostrar apenas a seção do Sudoku
 function showSudokuSection() {
     const startSection = document.getElementById('start-section');
     const sudokuSection = document.getElementById('sudoku-section');
+    const sudokuTable = generateSudoku();
+    
     startSection.style.display = 'none'; // Oculta a seção inicial
     sudokuSection.innerHTML = ''; // Limpa qualquer tabuleiro anterior
-    const sudokuTable = generateSudoku();
-    sudokuSection.appendChild(sudokuTable);
-    sudokuSection.style.display = 'block'; // Exibe a seção do Sudoku
+    
+    // Adicione a tabela do Sudoku diretamente ao corpo do documento
+    document.body.appendChild(sudokuTable);
+    
+    // Exibe a seção do Sudoku
+    sudokuSection.style.display = 'block';
 }
 
 // Event listener para iniciar o jogo Sudoku
