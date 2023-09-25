@@ -1,47 +1,3 @@
-/* Estilos para o corpo da página */
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f0f0f0;
-    margin: 0;
-    padding: 0;
-}
-
-/* Estilos para a seção de instruções */
-#start-section {
-    text-align: center;
-    padding: 20px;
-    background-color: #007bff;
-    color: #fff;
-    margin: 20px;
-    border-radius: 5px;
-}
-
-/* Estilos para o botão "Sudoku" */
-#start-button {
-    background-color: #007bff;
-    color: #fff;
-    padding: 10px 20px;
-    font-size: 16px;
-    border: none;
-    cursor: pointer;
-}
-
-/* Estilos para a seção do tabuleiro Sudoku */
-#sudoku-section {
-    text-align: center;
-    margin: 20px;
-    padding: 10px;
-    background-color: #fff;
-    border-radius: 5px;
-}
-
-/* Estilos para as células do tabuleiro Sudoku */
-#sudoku-board {
-    border-collapse: collapse;
-    margin: 0 auto;
-    width: 300px; /* Tamanho da tabela do Sudoku */
-}
-
 /* Estilos para a seção do tabuleiro Sudoku */
 #sudoku-section {
     text-align: center;
@@ -50,6 +6,7 @@ body {
     background-color: #fff;
     border-radius: 5px;
     width: fit-content; /* Ajustar a largura automaticamente ao conteúdo */
+    max-width: 90%; /* Limitar a largura máxima da tabela */
 }
 
 /* Estilos para as células do tabuleiro Sudoku */
@@ -70,12 +27,4 @@ body {
 
 #sudoku-board td.given {
     background-color: #eee;
-}
-
-
-/* Estilos para o enigma */
-#enigma-text {
-    font-size: 18px;
-    line-height: 1.5;
-    white-space: pre-line;
 }
