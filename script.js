@@ -68,6 +68,13 @@ function isSudokuSolved() {
     return true; // Sudoku resolvido corretamente
 }
 
+// Event listener para o botão "Sudoku"
+document.getElementById('start-button').addEventListener('click', function () {
+    createSudokuBoard();
+    document.getElementById('sudoku-section').style.display = 'block'; // Exibe a seção do Sudoku
+    document.getElementById('start-section').style.display = 'none'; // Oculta a seção de instruções
+});
+
 // Event listener para as células do tabuleiro Sudoku
 document.getElementById('sudoku-board').addEventListener('input', function () {
     if (isSudokuSolved()) {
