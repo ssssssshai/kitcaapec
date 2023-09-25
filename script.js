@@ -40,60 +40,6 @@ function createSudokuBoard() {
     }
 }
 
-// Function to check if Sudoku is solved correctly
-function isSudokuSolved() {
-    // Check rows, columns, and 3x3 boxes for duplicates
-    for (let i = 0; i < 9; i++) {
-        for (let j = 0; j < 9; j++) {
-            const currentVal = sudokuBoard[i][j];
-
-            if (currentVal === 0) {
-                return false; // If any cell is empty, it's not solved.
-            }
-
-            // Check the current row for duplicates
-            for (let k = 0; k < 9; k++) {
-                if (k !== j && sudokuBoard[i][k] === currentVal) {
-                    return false; // Duplicate in the row
-                }
-            }
-
-            // Check the current column for duplicates
-            for (let k = 0; k < 9; k++) {
-                if (k !== i && sudokuBoard[k][j] === currentVal) {
-                    return false; // Duplicate in the column
-                }
-            }
-
-            // Check the 3x3 box for duplicates
-            const boxStartRow = Math.floor(i / 3) * 3;
-            const boxStartCol = Math.floor(j / 3) * 3;
-            for (let x = boxStartRow; x < boxStartRow + 3; x++) {
-                for (let y = boxStartCol; y < boxStartCol + 3; y++) {
-                    if ((x !== i || y !== j) && sudokuBoard[x][y] === currentVal) {
-                        return false; // Duplicate in the 3x3 box
-                    }
-                }
-            }
-        }
-    }
-    return true; // Sudoku is solved correctly
-}
-
-    // For now, consider it solved if all cells are filled
-    for (let i = 0; i < 9; i++) {
-        for (let j = 0; j < 9; j++) {
-            if (sudokuBoard[i][j] === 0) {
-                return false;
-            }
-        }
-    }
-
-    return true;
-}
-
-}
-
 document.addEventListener('DOMContentLoaded', function () {
     // Event listener for the "Sudoku" button
     document.getElementById('start-button').addEventListener('click', function () {
@@ -103,11 +49,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
         // Remove any enigma previously displayed
         document.getElementById('enigma-section').style.display = 'none';
-
-        // Check if the Sudoku is solved when the board is created
-        if (isSudokuSolved()) {
-            displayEnigma();
-        }
     });
 
     // Event listener for checking if Sudoku is solved
@@ -116,5 +57,44 @@ document.addEventListener('DOMContentLoaded', function () {
             displayEnigma();
         }
     });
-});
 
+    // Function to check if Sudoku is solved correctly
+    function isSudokuSolved() {
+        // Check rows, columns, and 3x3 boxes for duplicates
+        for (let i = 0; i < 9; i++) {
+            for (let j = 0; j < 9; j++) {
+                const currentVal = sudokuBoard[i][j];
+
+                if (currentVal === 0) {
+                    return false; // If any cell is empty, it's not solved.
+                }
+
+                // Check the current row for duplicates
+                for (let k = 0; k < 9; k++) {
+                    if (k !== j && sudokuBoard[i][k] === currentVal) {
+                        return false; // Duplicate in the row
+                    }
+                }
+
+                // Check the current column for duplicates
+                for (let k = 0; k < 9; k++) {
+                    if (k !== i && sudokuBoard[k][j] === currentVal) {
+                        return false; // Duplicate in the column
+                    }
+                }
+
+                // Check the 3x3 box for duplicates
+                const boxStartRow = Math.floor(i / 3) * 3;
+                const boxStartCol = Math.floor(j / 3) * 3;
+                for (let x = boxStartRow; x < boxStartRow + 3; x++) {
+                    for (let y = boxStartCol; y < boxStartCol + 3; y++) {
+                        if ((x !== i || y !== j) && sudokuBoard[x][y] === currentVal) {
+                            return false; // Duplicate in the 3x3 box
+                        }
+                    }
+                }
+            }
+        }
+        return true; // Sudoku is solved correctly
+    }
+});
