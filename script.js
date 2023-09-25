@@ -1,3 +1,12 @@
+// Função para gerar o Sudoku quando o botão "Sudoku" é clicado
+document.getElementById('start-button').addEventListener('click', function () {
+    createSudokuBoard();
+    document.getElementById('sudoku-section').style.display = 'block'; // Exibe a seção do Sudoku
+    document.getElementById('start-section').style.display = 'none'; // Oculta a seção de instruções
+});
+
+
+
 // Matriz para armazenar o tabuleiro de Sudoku
 let sudokuBoard = [
     [5, 3, 0, 0, 7, 0, 0, 0, 0],
