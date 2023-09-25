@@ -80,7 +80,6 @@ function isSudokuSolved() {
     return true; // Sudoku is solved correctly
 }
 
-
     // For now, consider it solved if all cells are filled
     for (let i = 0; i < 9; i++) {
         for (let j = 0; j < 9; j++) {
