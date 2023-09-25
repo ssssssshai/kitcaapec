@@ -1,12 +1,3 @@
-// Função para gerar o Sudoku quando o botão "Sudoku" é clicado
-document.getElementById('start-button').addEventListener('click', function () {
-    createSudokuBoard();
-    document.getElementById('sudoku-section').style.display = 'block'; // Exibe a seção do Sudoku
-    document.getElementById('start-section').style.display = 'none'; // Oculta a seção de instruções
-});
-
-
-
 // Matriz para armazenar o tabuleiro de Sudoku
 let sudokuBoard = [
     [5, 3, 0, 0, 7, 0, 0, 0, 0],
@@ -47,8 +38,34 @@ function createSudokuBoard() {
 
 // Função para verificar se o Sudoku foi resolvido corretamente
 function isSudokuSolved() {
-    // Implemente a lógica para verificar a resolução do Sudoku aqui
-    // Retorne true se estiver resolvido corretamente, caso contrário, retorne false
+    for (let i = 0; i < 9; i++) {
+        for (let j = 0; j < 9; j++) {
+            const currentVal = sudokuBoard[i][j];
+            if (currentVal === 0) {
+                return false; // Existem células em branco, o Sudoku não está resolvido
+            }
+            // Verificar linhas e colunas
+            for (let k = 0; k < 9; k++) {
+                if (k !== j && sudokuBoard[i][k] === currentVal) {
+                    return false; // Número repetido na linha
+                }
+                if (k !== i && sudokuBoard[k][j] === currentVal) {
+                    return false; // Número repetido na coluna
+                }
+            }
+            // Verificar região 3x3
+            const regionStartRow = Math.floor(i / 3) * 3;
+            const regionStartCol = Math.floor(j / 3) * 3;
+            for (let x = regionStartRow; x < regionStartRow + 3; x++) {
+                for (let y = regionStartCol; y < regionStartCol + 3; y++) {
+                    if ((x !== i || y !== j) && sudokuBoard[x][y] === currentVal) {
+                        return false; // Número repetido na região 3x3
+                    }
+                }
+            }
+        }
+    }
+    return true; // Sudoku resolvido corretamente
 }
 
 // Event listener para as células do tabuleiro Sudoku
@@ -61,4 +78,5 @@ document.getElementById('sudoku-board').addEventListener('input', function () {
     }
 });
 
+// Iniciar o Sudoku automaticamente quando a página é carregada
 createSudokuBoard();
