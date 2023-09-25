@@ -1,122 +1,97 @@
-// Constants for Sudoku game
-const boardSize = 9;
-const blockSize = 3;
+// Function to generate a Sudoku puzzle (simplified)
+function generateSudoku() {
+    // Sudoku puzzle represented as a 9x9 array
+    const puzzle = [
+        [5, 3, 0, 0, 7, 0, 0, 0, 0],
+        [6, 0, 0, 1, 9, 5, 0, 0, 0],
+        [0, 9, 8, 0, 0, 0, 0, 6, 0],
+        [8, 0, 0, 0, 6, 0, 0, 0, 3],
+        [4, 0, 0, 8, 0, 3, 0, 0, 1],
+        [7, 0, 0, 0, 2, 0, 0, 0, 6],
+        [0, 6, 0, 0, 0, 0, 2, 8, 0],
+        [0, 0, 0, 4, 1, 9, 0, 0, 5],
+        [0, 0, 0, 0, 8, 0, 0, 7, 9]
+    ];
 
-// Initialize the Sudoku board
-let sudokuBoard = [
-    [5, 3, 0, 0, 7, 0, 0, 0, 0],
-    [6, 0, 0, 1, 9, 5, 0, 0, 0],
-    [0, 9, 8, 0, 0, 0, 0, 6, 0],
-    [8, 0, 0, 0, 6, 0, 0, 0, 3],
-    [4, 0, 0, 8, 0, 3, 0, 0, 1],
-    [7, 0, 0, 0, 2, 0, 0, 0, 6],
-    [0, 6, 0, 0, 0, 0, 2, 8, 0],
-    [0, 0, 0, 4, 1, 9, 0, 0, 5],
-    [0, 0, 0, 0, 8, 0, 0, 7, 9]
-];
+    // Convert the puzzle to a 9x9 table
+    const table = document.createElement('table');
 
-// Function to create the Sudoku board HTML
-function createSudokuBoard() {
-    const sudokuTable = document.getElementById("sudoku-board");
-    sudokuTable.innerHTML = "";
+    for (let i = 0; i < 9; i++) {
+        const row = document.createElement('tr');
 
-    for (let i = 0; i < boardSize; i++) {
-        const row = document.createElement("tr");
-
-        for (let j = 0; j < boardSize; j++) {
-            const cell = document.createElement("td");
-            const input = document.createElement("input");
-            input.type = "number";
-            input.min = 1;
-            input.max = 9;
-            input.value = sudokuBoard[i][j] === 0 ? "" : sudokuBoard[i][j];
-
-            input.addEventListener("input", () => {
-                sudokuBoard[i][j] = parseInt(input.value) || 0;
-            });
-
-            if (sudokuBoard[i][j] !== 0) {
-                cell.classList.add("given");
-                input.disabled = true;
+        for (let j = 0; j < 9; j++) {
+            const cell = document.createElement('td');
+            if (puzzle[i][j] !== 0) {
+                cell.textContent = puzzle[i][j];
+                cell.classList.add('given');
+            } else {
+                const input = document.createElement('input');
+                input.setAttribute('type', 'number');
+                input.setAttribute('min', '1');
+                input.setAttribute('max', '9');
+                input.setAttribute('size', '1');
+                cell.appendChild(input);
             }
-
-            cell.appendChild(input);
             row.appendChild(cell);
         }
 
-        sudokuTable.appendChild(row);
+        table.appendChild(row);
     }
+
+    return table;
 }
 
+// Function to check if the Sudoku is solved correctly
 function isSudokuSolved() {
-  // Check rows
-  for (let i = 0; i < boardSize; i++) {
-    const rowSet = new Set();
+    const inputs = document.querySelectorAll('input[type="number"]');
+    const puzzle = [];
 
-    for (let j = 0; j < boardSize; j++) {
-      const cellValue = sudokuBoard[i][j];
-
-      if (cellValue === 0 || rowSet.has(cellValue)) {
-        return false; // Invalid row
-      }
-
-      rowSet.add(cellValue);
-    }
-  }
-
-  // Check columns
-  for (let j = 0; j < boardSize; j++) {
-    const colSet = new Set();
-
-    for (let i = 0; i < boardSize; i++) {
-      const cellValue = sudokuBoard[i][j];
-
-      if (cellValue === 0 || colSet.has(cellValue)) {
-        return false; // Invalid column
-      }
-
-      colSet.add(cellValue);
-    }
-  }
-
-  // Check blocks (3x3 subgrids)
-  for (let blockRow = 0; blockRow < blockSize; blockRow++) {
-    for (let blockCol = 0; blockCol < blockSize; blockCol++) {
-      const blockSet = new Set();
-
-      for (let i = 0; i < blockSize; i++) {
-        for (let j = 0; j < blockSize; j++) {
-          const cellValue = sudokuBoard[blockRow * blockSize + i][blockCol * blockSize + j];
-
-          if (cellValue === 0 || blockSet.has(cellValue)) {
-            return false; // Invalid block
-          }
-
-          blockSet.add(cellValue);
+    // Extract the current state of the puzzle
+    let rowIndex = 0;
+    for (let i = 0; i < inputs.length; i++) {
+        if (i % 9 === 0) {
+            puzzle.push([]);
+            rowIndex++;
         }
-      }
+        const inputValue = parseInt(inputs[i].value, 10);
+        puzzle[rowIndex - 1].push(isNaN(inputValue) ? 0 : inputValue);
     }
-  }
 
-  return true; // Sudoku is solved
+    // Check rows, columns, and 3x3 grids for duplicates
+    for (let i = 0; i < 9; i++) {
+        const row = puzzle[i];
+        const column = puzzle.map(row => row[i]);
+        const grid = puzzle.slice(Math.floor(i / 3) * 3, Math.floor(i / 3) * 3 + 3)
+            .map(row => row.slice((i % 3) * 3, (i % 3) * 3 + 3))
+            .flat();
+
+        if (
+            hasDuplicates(row) ||
+            hasDuplicates(column) ||
+            hasDuplicates(grid)
+        ) {
+            return false;
+        }
+    }
+
+    return true;
 }
 
+// Function to check for duplicates in an array
+function hasDuplicates(array) {
+    const values = [];
+    for (let value of array) {
+        if (value !== 0 && values.includes(value)) {
+            return true;
+        }
+        values.push(value);
+    }
+    return false;
+}
 
-// Event listener for the "Check" button
-document.getElementById("check-button").addEventListener("click", () => {
+// Event listener for checking Sudoku solution
+document.getElementById('sudokuContainer').addEventListener('input', function () {
     if (isSudokuSolved()) {
-        document.getElementById("enigma-section").style.display = "block";
-        document.getElementById("enigma-text").textContent = "Parabéns! Você resolveu o Sudoku e encontrou o Ê!";
-    } else {
-        alert("Desculpe, o Sudoku não está resolvido corretamente.");
+        revealRiddle();
     }
 });
-
-// Event listener for the "Sudoku" button
-document.getElementById("start-button").addEventListener("click", () => {
-    document.getElementById("start-section").style.display = "none";
-    document.getElementById("sudoku-section").style.display = "block";
-});
-
-// Call the createSudokuBoard function to initialize the board
-createSudokuBoard();
