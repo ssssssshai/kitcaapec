@@ -21,35 +21,28 @@ function createSudokuBoard() {
         const row = document.createElement('tr');
         for (let j = 0; j < 9; j++) {
             const cell = document.createElement('td');
+            const input = document.createElement('input'); // Adiciona um elemento input para permitir edição
+            input.type = 'text';
+            input.maxLength = 1;
+            input.addEventListener('input', function () {
+                // Garante que o valor inserido seja um número entre 1 e 9
+                if (/[^1-9]/.test(this.value)) {
+                    this.value = '';
+                }
+            });
             if (initialBoard[i][j] !== 0) {
-                cell.textContent = initialBoard[i][j];
-                cell.classList.add('given'); // Adicione uma classe para as células iniciais
+                input.value = initialBoard[i][j];
+                input.classList.add('given'); // Adicione uma classe para as células iniciais
+                input.disabled = true; // Desabilita a edição nas células iniciais
             }
+            cell.appendChild(input);
             row.appendChild(cell);
         }
         sudokuBoard.appendChild(row);
     }
 }
 
-// Função para verificar se o Sudoku foi resolvido corretamente
-function isSudokuSolved() {
-    const cells = document.querySelectorAll('#sudoku-board td');
-    for (const cell of cells) {
-        if (!cell.classList.contains('given')) {
-            if (cell.textContent === '') {
-                return false; // Célula em branco
-            }
-        }
-    }
-    return true;
-}
-
-// Event listener para o botão "Sudoku"
-document.getElementById('start-button').addEventListener('click', function () {
-    createSudokuBoard(); // Chama a função para criar o tabuleiro Sudoku
-    document.getElementById('start-section').style.display = 'block'; // Exibe a seção inicial
-    document.getElementById('start-button').style.display = 'none'; // Esconde o botão "Sudoku"
-});
+// ...
 
 // Event listener para as células do tabuleiro Sudoku
 document.getElementById('sudoku-board').addEventListener('input', function () {
