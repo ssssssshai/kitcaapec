@@ -97,24 +97,37 @@ function revealRiddle() {
     enigmaText.textContent = enigma;
 }
 
+// Função para verificar se o Sudoku está resolvido corretamente e mostrar a mensagem apropriada
+function checkSudoku() {
+    const isSolved = isSudokuSolved();
+    const messageSection = document.getElementById('message-section');
+    const messageText = document.getElementById('message-text');
+
+    if (isSolved) {
+        revealRiddle();
+    } else {
+        messageText.textContent = 'Sudoku incorreto. Tente novamente!';
+    }
+
+    // Exibir a seção de mensagem
+    messageSection.style.display = 'block';
+}
+
 function showSudokuSection() {
     const startSection = document.getElementById('start-section');
     const sudokuSection = document.getElementById('sudoku-section');
     const sudokuTable = generateSudoku();
-    
+
     startSection.style.display = 'none'; // Oculta a seção inicial
     sudokuSection.style.display = 'block'; // Exibe a seção do Sudoku
     sudokuSection.innerHTML = ''; // Limpa qualquer tabuleiro anterior
-    
+
     // Adicione a tabela do Sudoku diretamente ao corpo do documento
     document.body.appendChild(sudokuTable);
+
+    const checkButton = document.getElementById('check-button');
+    checkButton.addEventListener('click', checkSudoku);
 }
-
-
-// Event listener para iniciar o jogo Sudoku
-document.getElementById('start-button').addEventListener('click', function () {
-    showSudokuSection();
-});
 
 // Event listener para verificar a solução do Sudoku
 document.getElementById('check-button').addEventListener('click', function () {
