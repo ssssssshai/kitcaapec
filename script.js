@@ -102,21 +102,21 @@ function showSudokuSection() {
     const sudokuSection = document.getElementById('sudoku-section');
     const sudokuTable = generateSudoku();
 
-    startSection.style.display = 'none'; // Oculta a seção inicial
-    sudokuSection.style.display = 'block'; // Exibe a seção do Sudoku
-    sudokuSection.innerHTML = ''; // Limpa qualquer tabuleiro anterior
-
-    // Adicione a tabela do Sudoku diretamente ao corpo do documento
+    startSection.style.display = 'none';
+    sudokuSection.style.display = 'block';
+    sudokuSection.innerHTML = '';
     document.body.appendChild(sudokuTable);
 
     const checkButton = document.getElementById('check-button');
     checkButton.addEventListener('click', function () {
         if (isSudokuSolved()) {
-            revealRiddle();
+            revealRiddle(); // Se o Sudoku estiver correto, revele o enigma
         } else {
-            alert('Sudoku incorreto. Tente novamente!');
+            alert('Sudoku incorreto. Tente novamente!'); // Se o Sudoku estiver incorreto, exiba um alerta
         }
     });
+}
+
 }
 
 // Event listener para iniciar o Sudoku quando o botão for clicado
