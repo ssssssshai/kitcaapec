@@ -12,7 +12,7 @@ function generateSudoku() {
     ];
 
     // Defina a variável global 'enigma' com um enigma específico
-    enigma = 'Ache o E\nTera voce chadidjd';
+    enigma = 'Você encontrou o E, agora ache o Ê!';
 
     const table = document.createElement('table');
 
