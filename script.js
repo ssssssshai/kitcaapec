@@ -58,7 +58,7 @@ function isSudokuSolved() {
             puzzle.push([]);
             rowIndex++;
         }
-        const inputValue = parseInt(inputs[i].value, 10);
+        const inputValue = parseInt(inputs[i].value, 5);
         puzzle[rowIndex - 1].push(isNaN(inputValue) ? 0 : inputValue);
     }
 
