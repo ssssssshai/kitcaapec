@@ -20,12 +20,21 @@ body {
     max-width: 50%; /* Limitar a largura máxima da tabela */
 }
 
+#sudoku-container {
+    width: 300px; /* Defina a largura desejada para o contêiner */
+    margin: 0 auto; /* Isso centralizará o contêiner horizontalmente */
+    padding: 20px; /* Adicione um espaço de preenchimento para espaçamento interno */
+    background-color: #f0f0f0; /* Adicione uma cor de fundo para destacar o contêiner */
+}
+
+
 /* Estilos para as células do tabuleiro Sudoku */
 #sudoku-board {
     border-collapse: collapse;
     margin: 0 auto;
     width: auto; /* Defina a largura como automática para se ajustar ao conteúdo */
 }
+
 
 #sudoku-board td {
     width: 30px;
