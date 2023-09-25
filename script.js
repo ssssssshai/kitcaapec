@@ -45,11 +45,11 @@ function createSudokuBoard() {
 // ...
 
 // Event listener para as células do tabuleiro Sudoku
-document.getElementById('sudoku-board').addEventListener('input', function () {
-    if (isSudokuSolved()) {
-        // Sudoku resolvido corretamente, mostre o enigma
-        const enigma = "Ola, encontre o e\npara encontrar\net"; // Seu enigma personalizado
-        document.getElementById('enigma-text').textContent = enigma;
-        document.getElementById('enigma-section').style.display = 'block'; // Exibe a seção do enigma
+document.getElementById('sudoku-board').addEventListener('input', function (event) {
+    const inputElement = event.target;
+    
+    // Garante que o valor inserido seja um número entre 1 e 9 ou um campo vazio
+    if (/[^1-9]/.test(inputElement.value) && inputElement.value !== "") {
+        inputElement.value = '';
     }
 });
