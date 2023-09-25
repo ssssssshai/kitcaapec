@@ -42,6 +42,23 @@ body {
     width: 300px; /* Tamanho da tabela do Sudoku */
 }
 
+/* Estilos para a seção do tabuleiro Sudoku */
+#sudoku-section {
+    text-align: center;
+    margin: 20px auto; /* Centralizar horizontalmente e adicionar margem superior e inferior */
+    padding: 10px;
+    background-color: #fff;
+    border-radius: 5px;
+    width: fit-content; /* Ajustar a largura automaticamente ao conteúdo */
+}
+
+/* Estilos para as células do tabuleiro Sudoku */
+#sudoku-board {
+    border-collapse: collapse;
+    margin: 0 auto;
+    width: auto; /* Defina a largura como automática para se ajustar ao conteúdo */
+}
+
 #sudoku-board td {
     width: 30px;
     height: 30px;
@@ -55,14 +72,6 @@ body {
     background-color: #eee;
 }
 
-/* Estilos para a seção do enigma */
-#enigma-section {
-    text-align: center;
-    margin: 20px;
-    padding: 10px;
-    background-color: #fff;
-    border-radius: 5px;
-}
 
 /* Estilos para o enigma */
 #enigma-text {
