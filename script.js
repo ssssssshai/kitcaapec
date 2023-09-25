@@ -1,6 +1,8 @@
-// Function to generate a Sudoku puzzle (5x5)
+// Variável para armazenar o enigma
+let enigma = '';
+
+// Função para gerar um Sudoku 5x5 aleatório
 function generateSudoku() {
-    // Sudoku puzzle represented as a 5x5 array
     const puzzle = [
         [5, 3, 0, 0, 0],
         [4, 0, 0, 1, 0],
@@ -9,7 +11,9 @@ function generateSudoku() {
         [0, 0, 1, 0, 2]
     ];
 
-    // Convert the puzzle to a 5x5 table
+    // Defina a variável global 'enigma' com um enigma específico
+    enigma = 'Este é o enigma 1.';
+
     const table = document.createElement('table');
 
     for (let i = 0; i < 5; i++) {
@@ -24,7 +28,7 @@ function generateSudoku() {
                 const input = document.createElement('input');
                 input.setAttribute('type', 'number');
                 input.setAttribute('min', '1');
-                input.setAttribute('max', '5'); // Change max to 5 for a 5x5 Sudoku
+                input.setAttribute('max', '5');
                 input.setAttribute('size', '1');
                 cell.appendChild(input);
             }
@@ -37,12 +41,12 @@ function generateSudoku() {
     return table;
 }
 
-// Function to check if the Sudoku is solved correctly
+// Função para verificar se o Sudoku está resolvido corretamente
 function isSudokuSolved() {
     const inputs = document.querySelectorAll('input[type="number"]');
     const puzzle = [];
 
-    // Extract the current state of the puzzle
+    // Extrair o estado atual do quebra-cabeça
     let rowIndex = 0;
     for (let i = 0; i < inputs.length; i++) {
         if (i % 5 === 0) {
@@ -53,7 +57,7 @@ function isSudokuSolved() {
         puzzle[rowIndex - 1].push(isNaN(inputValue) ? 0 : inputValue);
     }
 
-    // Check rows and columns for duplicates
+    // Verificar linhas e colunas em busca de duplicatas
     for (let i = 0; i < 5; i++) {
         const row = puzzle[i];
         const column = puzzle.map(row => row[i]);
@@ -69,7 +73,7 @@ function isSudokuSolved() {
     return true;
 }
 
-// Function to check for duplicates in an array
+// Função para verificar duplicatas em um array
 function hasDuplicates(array) {
     const values = [];
     for (let value of array) {
@@ -81,9 +85,30 @@ function hasDuplicates(array) {
     return false;
 }
 
-// Event listener for checking Sudoku solution
-document.getElementById('sudokuContainer').addEventListener('input', function () {
+// Função para revelar o enigma
+function revealRiddle() {
+    const enigmaSection = document.getElementById('enigma-section');
+    const enigmaText = document.getElementById('enigma-text');
+
+    // Exibir a seção de enigma
+    enigmaSection.style.display = 'block';
+
+    // Exibir o enigma
+    enigmaText.textContent = enigma;
+}
+
+// Event listener para verificar a solução do Sudoku
+document.getElementById('sudoku-board').addEventListener('input', function () {
     if (isSudokuSolved()) {
         revealRiddle();
     }
+});
+
+// Event listener para iniciar o jogo Sudoku
+document.getElementById('start-button').addEventListener('click', function () {
+    const sudokuSection = document.getElementById('sudoku-section');
+    sudokuSection.innerHTML = ''; // Limpa qualquer tabuleiro anterior
+    const sudokuTable = generateSudoku();
+    sudokuSection.appendChild(sudokuTable);
+    sudokuSection.style.display = 'block';
 });
