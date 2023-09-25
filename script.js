@@ -103,14 +103,13 @@ function showSudokuSection() {
     const sudokuTable = generateSudoku();
     
     startSection.style.display = 'none'; // Oculta a seção inicial
+    sudokuSection.style.display = 'block'; // Exibe a seção do Sudoku
     sudokuSection.innerHTML = ''; // Limpa qualquer tabuleiro anterior
     
     // Adicione a tabela do Sudoku diretamente ao corpo do documento
     document.body.appendChild(sudokuTable);
-    
-    // Exibe a seção do Sudoku
-    sudokuSection.style.display = 'block';
 }
+
 
 // Event listener para iniciar o jogo Sudoku
 document.getElementById('start-button').addEventListener('click', function () {
