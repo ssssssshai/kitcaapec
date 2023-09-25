@@ -43,7 +43,7 @@ function generateSudoku() {
 
 // Function to check if the Sudoku is solved correctly
 function isSudokuSolved() {
-    const inputs = document.querySelectorAll('input[type="number"]');
+    const inputs = document.querySelectorAll('#sudoku-board input[type="number"]');
     const puzzle = [];
 
     // Extract the current state of the puzzle
@@ -89,9 +89,31 @@ function hasDuplicates(array) {
     return false;
 }
 
+// Function to reveal the enigma
+function revealEnigma() {
+    const enigmaSection = document.getElementById('enigma-section');
+    enigmaSection.style.display = 'block';
+    const enigmaText = document.getElementById('enigma-text');
+    enigmaText.textContent = 'The Ê is Where it will be?';
+}
+
 // Event listener for checking Sudoku solution
-document.getElementById('sudokuContainer').addEventListener('input', function () {
+document.getElementById('check-button').addEventListener('click', function () {
     if (isSudokuSolved()) {
-        revealRiddle();
+        revealEnigma();
     }
+});
+
+// Event listener for starting the Sudoku game
+document.getElementById('start-button').addEventListener('click', function () {
+    const startSection = document.getElementById('start-section');
+    const sudokuSection = document.getElementById('sudoku-section');
+    startSection.style.display = 'none';
+    sudokuSection.style.display = 'block';
+
+    // Generate the Sudoku puzzle
+    const sudokuContainer = document.getElementById('sudoku-board');
+    const sudokuTable = generateSudoku();
+    sudokuContainer.innerHTML = '';
+    sudokuContainer.appendChild(sudokuTable);
 });
