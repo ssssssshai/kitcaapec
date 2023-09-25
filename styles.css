@@ -12,6 +12,8 @@ body {
     padding: 20px;
     background-color: #007bff;
     color: #fff;
+    margin: 20px;
+    border-radius: 5px;
 }
 
 /* Estilos para o botão "Sudoku" */
@@ -27,13 +29,17 @@ body {
 /* Estilos para a seção do tabuleiro Sudoku */
 #sudoku-section {
     text-align: center;
-    margin-top: 20px;
+    margin: 20px;
+    padding: 10px;
+    background-color: #fff;
+    border-radius: 5px;
 }
 
 /* Estilos para as células do tabuleiro Sudoku */
 #sudoku-board {
     border-collapse: collapse;
     margin: 0 auto;
+    width: 300px; /* Tamanho da tabela do Sudoku */
 }
 
 #sudoku-board td {
@@ -52,7 +58,10 @@ body {
 /* Estilos para a seção do enigma */
 #enigma-section {
     text-align: center;
-    margin-top: 20px;
+    margin: 20px;
+    padding: 10px;
+    background-color: #fff;
+    border-radius: 5px;
 }
 
 /* Estilos para o enigma */
