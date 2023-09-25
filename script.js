@@ -99,17 +99,19 @@ document.getElementById('start-button').addEventListener('click', function () {
     document.getElementById('sudoku-section').style.display = 'block';
     document.getElementById('start-section').style.display = 'none';
 
-    // Check if Sudoku is solved when the board is created
+    // Remova qualquer enigma anteriormente exibido
+    document.getElementById('enigma-section').style.display = 'none';
+
+    // Verifique se o Sudoku está resolvido quando o tabuleiro é criado
     if (isSudokuSolved()) {
         displayEnigma();
     }
 });
 
 // Event listener for checking if Sudoku is solved
-function checkSudokuSolved() {
+document.getElementById('sudoku-board').addEventListener('input', function () {
     if (isSudokuSolved()) {
         displayEnigma();
     }
-}
+});
 
-document.getElementById('sudoku-board').addEventListener('input', checkSudokuSolved);
