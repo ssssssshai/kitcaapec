@@ -41,7 +41,6 @@ function generateSudoku() {
     return table;
 }
 
-// Função para verificar se o Sudoku está resolvido corretamente
 function isSudokuSolved() {
     const inputs = document.querySelectorAll('input[type="number"]');
     const puzzle = [];
@@ -70,19 +69,22 @@ function isSudokuSolved() {
         }
     }
 
-    return true;
-}
-
-// Função para verificar duplicatas em um array
-function hasDuplicates(array) {
-    const values = [];
-    for (let value of array) {
-        if (value !== 0 && values.includes(value)) {
-            return true;
+    // Verificar subgrids de 5x5 em busca de duplicatas
+    for (let i = 0; i < 5; i += 2) {
+        for (let j = 0; j < 5; j += 2) {
+            const subgrid = [];
+            for (let x = i; x < i + 2; x++) {
+                for (let y = j; y < j + 2; y++) {
+                    subgrid.push(puzzle[x][y]);
+                }
+            }
+            if (hasDuplicates(subgrid)) {
+                return false;
+            }
         }
-        values.push(value);
     }
-    return false;
+
+    return true;
 }
 
 // Função para revelar o enigma
