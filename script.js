@@ -1,6 +1,9 @@
 // Variável para armazenar o enigma
 let enigma = '';
 
+// Variável para armazenar entradas inválidas
+let invalidInputs = [];
+
 // Função para gerar um Sudoku 5x5 aleatório
 function generateSudoku() {
     const puzzle = [
@@ -47,21 +50,25 @@ function hasDuplicates(array) {
     return uniqueValues.size !== array.length;
 }
 
-// Função para verificar subgrids de 5x5 em busca de duplicatas
-function checkSubgrid(puzzle, rowStart, colStart) {
-    const subgrid = [];
-    for (let i = rowStart; i < rowStart + 2; i++) {
-        for (let j = colStart; j < colStart + 2; j++) {
-            subgrid.push(puzzle[i][j]);
-        }
-    }
-    return hasDuplicates(subgrid);
+// Função para revelar o enigma
+function revealEnigma() {
+    const enigmaSection = document.getElementById('enigma-section');
+    const enigmaText = document.getElementById('enigma-text');
+
+    // Exibir a seção de enigma
+    enigmaSection.style.display = 'block';
+
+    // Exibir o enigma
+    enigmaText.textContent = 'O vento no cume bate\na flor no cume cheira';
 }
 
 function isSudokuSolved() {
     const inputs = document.querySelectorAll('input[type="number"]');
     const puzzle = [];
-    let invalidInputs = [];
+
+    // Limpar entradas inválidas
+    invalidInputs.forEach(input => input.classList.remove('invalid-input'));
+    invalidInputs = [];
 
     // Extrair o estado atual do quebra-cabeça e verificar entradas inválidas
     let rowIndex = 0;
@@ -98,18 +105,6 @@ function isSudokuSolved() {
     return true;
 }
 
-// Função para revelar o enigma
-function revealRiddle() {
-    const enigmaSection = document.getElementById('enigma-section');
-    const enigmaText = document.getElementById('enigma-text');
-
-    // Exibir a seção de enigma
-    enigmaSection.style.display = 'block';
-
-    // Exibir o enigma
-    enigmaText.textContent = enigma;
-}
-
 function showSudokuSection() {
     const startSection = document.getElementById('start-section');
     const sudokuSection = document.getElementById('sudoku-section');
@@ -128,7 +123,7 @@ function showSudokuSection() {
 
     checkButton.addEventListener('click', function () {
         if (isSudokuSolved()) {
-            revealRiddle(); // Se o Sudoku estiver correto, revele o enigma
+            revealEnigma(); // Se o Sudoku estiver correto, revele o enigma
         } else {
             // Destacar células com valores inválidos
             invalidInputs.forEach(input => input.classList.add('invalid-input'));
