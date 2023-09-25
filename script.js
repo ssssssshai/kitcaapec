@@ -94,12 +94,27 @@ function isSudokuSolved() {
 
 }
 
-// Event listener para o botão "Sudoku"
-document.getElementById('start-button').addEventListener('click', function () {
-    createSudokuBoard();
-    document.getElementById('sudoku-section').style.display = 'block';
-    document.getElementById('start-section').style.display = 'none';
+document.addEventListener('DOMContentLoaded', function () {
+    // Event listener for the "Sudoku" button
+    document.getElementById('start-button').addEventListener('click', function () {
+        createSudokuBoard();
+        document.getElementById('sudoku-section').style.display = 'block';
+        document.getElementById('start-section').style.display = 'none';
 
-    // Remova qualquer enigma anteriormente exibido
-    document.getElementById('enigma-section').style.display = 'none';
+        // Remove any enigma previously displayed
+        document.getElementById('enigma-section').style.display = 'none';
+
+        // Check if the Sudoku is solved when the board is created
+        if (isSudokuSolved()) {
+            displayEnigma();
+        }
+    });
+
+    // Event listener for checking if Sudoku is solved
+    document.getElementById('sudoku-board').addEventListener('input', function () {
+        if (isSudokuSolved()) {
+            displayEnigma();
+        }
+    });
 });
+
