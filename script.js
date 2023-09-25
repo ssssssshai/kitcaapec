@@ -117,7 +117,5 @@ function showSudokuSection() {
     });
 }
 
-}
-
 // Event listener para iniciar o Sudoku quando o botão for clicado
 document.getElementById('start-button').addEventListener('click', showSudokuSection);
