@@ -47,47 +47,49 @@ function hasDuplicates(array) {
     return uniqueValues.size !== array.length;
 }
 
+// Função para verificar subgrids de 5x5 em busca de duplicatas
+function checkSubgrid(puzzle, rowStart, colStart) {
+    const subgrid = [];
+    for (let i = rowStart; i < rowStart + 2; i++) {
+        for (let j = colStart; j < colStart + 2; j++) {
+            subgrid.push(puzzle[i][j]);
+        }
+    }
+    return hasDuplicates(subgrid);
+}
+
 function isSudokuSolved() {
     const inputs = document.querySelectorAll('input[type="number"]');
     const puzzle = [];
+    let invalidInputs = [];
 
-    // Extrair o estado atual do quebra-cabeça
+    // Extrair o estado atual do quebra-cabeça e verificar entradas inválidas
     let rowIndex = 0;
     for (let i = 0; i < inputs.length; i++) {
         if (i % 5 === 0) {
             puzzle.push([]);
             rowIndex++;
         }
-        const inputValue = parseInt(inputs[i].value, 5);
+        const inputValue = parseInt(inputs[i].value, 10);
+        if (isNaN(inputValue) || inputValue < 1 || inputValue > 5) {
+            invalidInputs.push(inputs[i]);
+        }
         puzzle[rowIndex - 1].push(isNaN(inputValue) ? 0 : inputValue);
     }
 
-    // Verificar linhas em busca de duplicatas
+    // Verificar linhas e colunas em busca de duplicatas
     for (let i = 0; i < 5; i++) {
         const row = puzzle[i];
-        if (hasDuplicates(row)) {
-            return false;
-        }
-    }
-
-    // Verificar colunas em busca de duplicatas
-    for (let i = 0; i < 5; i++) {
         const column = puzzle.map(row => row[i]);
-        if (hasDuplicates(column)) {
+        if (hasDuplicates(row) || hasDuplicates(column) || invalidInputs.some(input => row.includes(parseInt(input.value, 10)))) {
             return false;
         }
     }
 
-    // Verificar subgrids de 5x5 em busca de duplicatas
+    // Verificar subgrids de 5x5 em busca de duplicatas e entradas inválidas
     for (let i = 0; i < 5; i += 2) {
         for (let j = 0; j < 5; j += 2) {
-            const subgrid = [];
-            for (let x = i; x < i + 2; x++) {
-                for (let y = j; y < j + 2; y++) {
-                    subgrid.push(puzzle[x][y]);
-                }
-            }
-            if (hasDuplicates(subgrid)) {
+            if (checkSubgrid(puzzle, i, j) || invalidInputs.some(input => checkSubgrid(puzzle, i, j).includes(parseInt(input.value, 10)))) {
                 return false;
             }
         }
@@ -128,11 +130,12 @@ function showSudokuSection() {
         if (isSudokuSolved()) {
             revealRiddle(); // Se o Sudoku estiver correto, revele o enigma
         } else {
+            // Destacar células com valores inválidos
+            invalidInputs.forEach(input => input.classList.add('invalid-input'));
             alert('Sudoku incorreto. Tente novamente!'); // Se o Sudoku estiver incorreto, exiba um alerta
         }
     });
 }
-
 
 // Event listener para iniciar o Sudoku quando o botão for clicado
 document.getElementById('start-button').addEventListener('click', showSudokuSection);
