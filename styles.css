@@ -20,13 +20,6 @@ body {
     max-width: 80%; /* Limit the maximum width of the table */
 }
 
-#sudoku-container {
-    width: 300px;
-    margin: 0 auto;
-    padding: 20px;
-    background-color: #f0f0f0;
-}
-
 /* Styles for Sudoku cells */
 #sudoku-board {
     border-collapse: collapse;
