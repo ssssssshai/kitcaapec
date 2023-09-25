@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Sudoku Enigma</title>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+    <section id="start-section">
+        <h1>Olá! Então você quer ganhar um kit da atlética? Que daora! Vamos lá às instruções:</h1>
+        <p>Você deverá resolver o Sudoku</p>
+        <p>Após resolver, se resolver corretamente, obterá um enigma</p>
+        <p>Resolva o enigma e encontre o Ê!</p>
+        <button id="start-button">Sudoku</button>
+    </section>
+
+    <section id="sudoku-section">
+        <table id="sudoku-board">
+            <!-- As células do Sudoku serão geradas aqui com JavaScript -->
+        </table>
+    </section>
+
+    <section id="enigma-section" style="display: none;">
+        <h2>Enigma:</h2>
+        <p id="enigma-text"></p>
+    </section>
+
+    <script src="script.js"></script>
+</body>
+</html>
