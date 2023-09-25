@@ -1,25 +1,21 @@
-// Function to generate a Sudoku puzzle (simplified)
+// Function to generate a Sudoku puzzle (5x5)
 function generateSudoku() {
-    // Sudoku puzzle represented as a 9x9 array
+    // Sudoku puzzle represented as a 5x5 array
     const puzzle = [
-        [5, 3, 0, 0, 7, 0, 0, 0, 0],
-        [6, 0, 0, 1, 9, 5, 0, 0, 0],
-        [0, 9, 8, 0, 0, 0, 0, 6, 0],
-        [8, 0, 0, 0, 6, 0, 0, 0, 3],
-        [4, 0, 0, 8, 0, 3, 0, 0, 1],
-        [7, 0, 0, 0, 2, 0, 0, 0, 6],
-        [0, 6, 0, 0, 0, 0, 2, 8, 0],
-        [0, 0, 0, 4, 1, 9, 0, 0, 5],
-        [0, 0, 0, 0, 8, 0, 0, 7, 9]
+        [5, 3, 0, 0, 0],
+        [4, 0, 0, 1, 0],
+        [0, 2, 0, 0, 4],
+        [3, 0, 0, 0, 0],
+        [0, 0, 1, 0, 2]
     ];
 
-    // Convert the puzzle to a 9x9 table
+    // Convert the puzzle to a 5x5 table
     const table = document.createElement('table');
 
-    for (let i = 0; i < 9; i++) {
+    for (let i = 0; i < 5; i++) {
         const row = document.createElement('tr');
 
-        for (let j = 0; j < 9; j++) {
+        for (let j = 0; j < 5; j++) {
             const cell = document.createElement('td');
             if (puzzle[i][j] !== 0) {
                 cell.textContent = puzzle[i][j];
@@ -28,7 +24,7 @@ function generateSudoku() {
                 const input = document.createElement('input');
                 input.setAttribute('type', 'number');
                 input.setAttribute('min', '1');
-                input.setAttribute('max', '9');
+                input.setAttribute('max', '5'); // Change max to 5 for a 5x5 Sudoku
                 input.setAttribute('size', '1');
                 cell.appendChild(input);
             }
@@ -43,13 +39,13 @@ function generateSudoku() {
 
 // Function to check if the Sudoku is solved correctly
 function isSudokuSolved() {
-    const inputs = document.querySelectorAll('#sudoku-board input[type="number"]');
+    const inputs = document.querySelectorAll('input[type="number"]');
     const puzzle = [];
 
     // Extract the current state of the puzzle
     let rowIndex = 0;
     for (let i = 0; i < inputs.length; i++) {
-        if (i % 9 === 0) {
+        if (i % 5 === 0) {
             puzzle.push([]);
             rowIndex++;
         }
@@ -57,18 +53,14 @@ function isSudokuSolved() {
         puzzle[rowIndex - 1].push(isNaN(inputValue) ? 0 : inputValue);
     }
 
-    // Check rows, columns, and 3x3 grids for duplicates
-    for (let i = 0; i < 9; i++) {
+    // Check rows and columns for duplicates
+    for (let i = 0; i < 5; i++) {
         const row = puzzle[i];
         const column = puzzle.map(row => row[i]);
-        const grid = puzzle.slice(Math.floor(i / 3) * 3, Math.floor(i / 3) * 3 + 3)
-            .map(row => row.slice((i % 3) * 3, (i % 3) * 3 + 3))
-            .flat();
 
         if (
             hasDuplicates(row) ||
-            hasDuplicates(column) ||
-            hasDuplicates(grid)
+            hasDuplicates(column)
         ) {
             return false;
         }
@@ -89,31 +81,9 @@ function hasDuplicates(array) {
     return false;
 }
 
-// Function to reveal the enigma
-function revealEnigma() {
-    const enigmaSection = document.getElementById('enigma-section');
-    enigmaSection.style.display = 'block';
-    const enigmaText = document.getElementById('enigma-text');
-    enigmaText.textContent = 'The Ê is Where it will be?';
-}
-
 // Event listener for checking Sudoku solution
-document.getElementById('check-button').addEventListener('click', function () {
+document.getElementById('sudokuContainer').addEventListener('input', function () {
     if (isSudokuSolved()) {
-        revealEnigma();
+        revealRiddle();
     }
-});
-
-// Event listener for starting the Sudoku game
-document.getElementById('start-button').addEventListener('click', function () {
-    const startSection = document.getElementById('start-section');
-    const sudokuSection = document.getElementById('sudoku-section');
-    startSection.style.display = 'none';
-    sudokuSection.style.display = 'block';
-
-    // Generate the Sudoku puzzle
-    const sudokuContainer = document.getElementById('sudoku-board');
-    const sudokuTable = generateSudoku();
-    sudokuContainer.innerHTML = '';
-    sudokuContainer.appendChild(sudokuTable);
 });
