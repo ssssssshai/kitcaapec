@@ -97,18 +97,25 @@ function revealRiddle() {
     enigmaText.textContent = enigma;
 }
 
-// Event listener para verificar a solução do Sudoku
-document.getElementById('sudoku-board').addEventListener('input', function () {
-    if (isSudokuSolved()) {
-        revealRiddle();
-    }
-});
-
-// Event listener para iniciar o jogo Sudoku
-document.getElementById('start-button').addEventListener('click', function () {
+// Função para mostrar apenas a seção do Sudoku
+function showSudokuSection() {
+    const startSection = document.getElementById('start-section');
     const sudokuSection = document.getElementById('sudoku-section');
+    startSection.style.display = 'none'; // Oculta a seção inicial
     sudokuSection.innerHTML = ''; // Limpa qualquer tabuleiro anterior
     const sudokuTable = generateSudoku();
     sudokuSection.appendChild(sudokuTable);
-    sudokuSection.style.display = 'block';
+    sudokuSection.style.display = 'block'; // Exibe a seção do Sudoku
+}
+
+// Event listener para iniciar o jogo Sudoku
+document.getElementById('start-button').addEventListener('click', function () {
+    showSudokuSection();
+});
+
+// Event listener para verificar a solução do Sudoku
+document.getElementById('check-button').addEventListener('click', function () {
+    if (isSudokuSolved()) {
+        revealRiddle();
+    }
 });
