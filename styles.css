@@ -7,7 +7,7 @@ body {
     display: flex; /* Use um display flex para centralizar vertical e horizontalmente */
     justify-content: center; /* Centralize horizontalmente */
     align-items: center; /* Centralize verticalmente */
-    height: 100vh; /* Defina a altura para ocupar toda a altura da janela do navegador */
+    height: 500vh; /* Defina a altura para ocupar toda a altura da janela do navegador */
 }
 
 /* Estilos para a seção do tabuleiro Sudoku */
@@ -17,7 +17,7 @@ body {
     background-color: #fff;
     border-radius: 5px;
     width: fit-content; /* Ajustar a largura automaticamente ao conteúdo */
-    max-width: 90%; /* Limitar a largura máxima da tabela */
+    max-width: 50%; /* Limitar a largura máxima da tabela */
 }
 
 /* Estilos para as células do tabuleiro Sudoku */
