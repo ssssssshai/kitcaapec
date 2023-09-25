@@ -11,7 +11,7 @@ body {
 }
 
 /* Styles for the Sudoku section */
-#sudoku-section {
+#sudokuContainer {
     text-align: center;
     padding: 10px;
     background-color: #fff;
@@ -21,13 +21,13 @@ body {
 }
 
 /* Styles for Sudoku cells */
-#sudoku-board {
+#sudokuContainer table {
     border-collapse: collapse;
     margin: 0 auto;
     width: 100%; /* Adjusted to 100% to fit the container */
 }
 
-#sudoku-board td {
+#sudokuContainer td {
     width: 30px;
     height: 30px;
     text-align: center;
@@ -36,6 +36,6 @@ body {
     border: 1px solid #ddd;
 }
 
-#sudoku-board td.given {
+#sudokuContainer td.given {
     background-color: #eee;
 }
