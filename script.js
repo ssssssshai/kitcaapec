@@ -4,11 +4,11 @@ let enigma = '';
 // Função para gerar um Sudoku 5x5 aleatório
 function generateSudoku() {
     const puzzle = [
-        [3, 0, 0, 0, 0],
-        [1, 4, 0, 2, 0],
-        [0, 0, 1, 0, 4],
         [5, 0, 0, 0, 0],
-        [0, 0, 0, 0, 3]
+        [0, 3, 0, 0, 5],
+        [0, 1, 0, 0, 0],
+        [0, 4, 0, 0, 0],
+        [0, 0, 3, 0, 3]
     ];
 
     // Defina a variável global 'enigma' com um enigma específico
