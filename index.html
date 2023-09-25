@@ -1,26 +1,30 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styles.css">
-    <title>Sudoku Challenge</title>
+    <title>Sudoku Enigma</title>
+    <link rel="stylesheet" type="text/css" href="styles.css">
 </head>
 <body>
-    <div class="container">
-        <h1>Hello! So you want to win an athletic kit? How awesome! Let's go to the instructions:</h1>
-        <p>You must solve Sudoku</p>
-        <button id="sudokuButton">Sudoku</button>
-    </div>
-    
-    <div id="sudokuContainer" class="hidden">
-        <!-- Sudoku game content will be loaded here -->
-    </div>
+    <section id="start-section">
+        <h1>Olá! Então você quer ganhar um kit da atlética? Que daora! Vamos lá às instruções:</h1>
+        <p>Você deverá resolver o Sudoku</p>
+        <p>Após resolver, se resolver corretamente, obterá um enigma</p>
+        <p>Resolva o enigma e encontre o Ê!</p>
+        <button id="start-button">Iniciar Sudoku</button>
+    </section>
 
-    <div id="riddleContainer" class="hidden">
-        <p>The Ê is</p>
-        <p>Where it will be?</p>
-    </div>
+    <section id="sudoku-section" style="display: none;">
+        <h2>Sudoku:</h2>
+        <table id="sudoku-board">
+            <!-- Sudoku cells will be generated here with JavaScript -->
+        </table>
+        <button id="check-button">Verificar</button>
+    </section>
+
+    <section id="enigma-section" style="display: none;">
+        <h2>Enigma:</h2>
+        <p id="enigma-text"></p>
+    </section>
 
     <script src="script.js"></script>
 </body>
