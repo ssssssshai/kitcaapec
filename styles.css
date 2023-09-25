@@ -1,7 +1,18 @@
+/* Estilos para o corpo da página */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    margin: 0;
+    padding: 0;
+    display: flex; /* Use um display flex para centralizar vertical e horizontalmente */
+    justify-content: center; /* Centralize horizontalmente */
+    align-items: center; /* Centralize verticalmente */
+    height: 100vh; /* Defina a altura para ocupar toda a altura da janela do navegador */
+}
+
 /* Estilos para a seção do tabuleiro Sudoku */
 #sudoku-section {
     text-align: center;
-    margin: 20px auto; /* Centralizar horizontalmente e adicionar margem superior e inferior */
     padding: 10px;
     background-color: #fff;
     border-radius: 5px;
