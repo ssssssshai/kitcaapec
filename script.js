@@ -105,9 +105,14 @@ function showSudokuSection() {
     startSection.style.display = 'none';
     sudokuSection.style.display = 'block';
     sudokuSection.innerHTML = '';
-    document.body.appendChild(sudokuTable);
+    sudokuSection.appendChild(sudokuTable); // Adicione a tabela Sudoku à seção
 
-    const checkButton = document.getElementById('check-button');
+    // Adicione o botão de verificar
+    const checkButton = document.createElement('button');
+    checkButton.setAttribute('id', 'check-button');
+    checkButton.textContent = 'Verificar';
+    sudokuSection.appendChild(checkButton);
+
     checkButton.addEventListener('click', function () {
         if (isSudokuSolved()) {
             revealRiddle(); // Se o Sudoku estiver correto, revele o enigma
@@ -116,6 +121,7 @@ function showSudokuSection() {
         }
     });
 }
+
 
 // Event listener para iniciar o Sudoku quando o botão for clicado
 document.getElementById('start-button').addEventListener('click', showSudokuSection);
