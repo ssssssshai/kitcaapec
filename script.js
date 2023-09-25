@@ -42,14 +42,13 @@ function createSudokuBoard() {
     }
 }
 
-// ...
-
 // Event listener para as células do tabuleiro Sudoku
-document.getElementById('sudoku-board').addEventListener('input', function (event) {
-    const inputElement = event.target;
-    
-    // Garante que o valor inserido seja um número entre 1 e 9 ou um campo vazio
-    if (/[^1-9]/.test(inputElement.value) && inputElement.value !== "") {
-        inputElement.value = '';
+document.getElementById('sudoku-board').addEventListener('click', function (event) {
+    const cell = event.target;
+    if (!cell.classList.contains('given')) {
+        // Habilita a edição apenas para células não iniciais (células vazias)
+        const inputElement = cell.querySelector('input');
+        inputElement.removeAttribute('disabled');
+        inputElement.focus(); // Coloca o foco no input para facilitar a edição
     }
 });
