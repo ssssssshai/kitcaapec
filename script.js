@@ -75,15 +75,10 @@ document.getElementById('start-button').addEventListener('click', function () {
     document.getElementById('start-section').style.display = 'none'; // Oculta a seção de instruções
 });
 
-// Event listener para as células do tabuleiro Sudoku
-document.getElementById('sudoku-board').addEventListener('input', function () {
-    if (isSudokuSolved()) {
-        // Sudoku resolvido corretamente, mostre o enigma
-        const enigma = "Ola, encontre o e\npara encontrar\net"; // Seu enigma personalizado
-        document.getElementById('enigma-text').textContent = enigma;
-        document.getElementById('enigma-section').style.display = 'block'; // Exibe a seção do enigma
-    }
+// Event listener para o botão "Sudoku"
+document.getElementById('start-button').addEventListener('click', function () {
+    createSudokuBoard();
+    document.getElementById('sudoku-section').style.display = 'block'; // Exibe a seção do Sudoku
+    document.getElementById('start-section').style.display = 'none'; // Oculta a seção de instruções
 });
 
-// Iniciar o Sudoku automaticamente quando a página é carregada
-createSudokuBoard();
