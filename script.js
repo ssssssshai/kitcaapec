@@ -12,7 +12,7 @@ function generateSudoku() {
     ];
 
     // Defina a variável global 'enigma' com um enigma específico
-    enigma = 'Este é o enigma 1.';
+    enigma = 'Ache o E\nTera voce chadidjd';
 
     const table = document.createElement('table');
 
@@ -97,22 +97,6 @@ function revealRiddle() {
     enigmaText.textContent = enigma;
 }
 
-// Função para verificar se o Sudoku está resolvido corretamente e mostrar a mensagem apropriada
-function checkSudoku() {
-    const isSolved = isSudokuSolved();
-    const messageSection = document.getElementById('message-section');
-    const messageText = document.getElementById('message-text');
-
-    if (isSolved) {
-        revealRiddle();
-    } else {
-        messageText.textContent = 'Sudoku incorreto. Tente novamente!';
-    }
-
-    // Exibir a seção de mensagem
-    messageSection.style.display = 'block';
-}
-
 function showSudokuSection() {
     const startSection = document.getElementById('start-section');
     const sudokuSection = document.getElementById('sudoku-section');
@@ -126,12 +110,14 @@ function showSudokuSection() {
     document.body.appendChild(sudokuTable);
 
     const checkButton = document.getElementById('check-button');
-    checkButton.addEventListener('click', checkSudoku);
+    checkButton.addEventListener('click', function () {
+        if (isSudokuSolved()) {
+            revealRiddle();
+        } else {
+            alert('Sudoku incorreto. Tente novamente!');
+        }
+    });
 }
 
-// Event listener para verificar a solução do Sudoku
-document.getElementById('check-button').addEventListener('click', function () {
-    if (isSudokuSolved()) {
-        revealRiddle();
-    }
-});
+// Event listener para iniciar o Sudoku quando o botão for clicado
+document.getElementById('start-button').addEventListener('click', showSudokuSection);
