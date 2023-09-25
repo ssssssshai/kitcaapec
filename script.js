@@ -22,6 +22,8 @@ function createSudokuBoard() {
             const input = document.createElement('input');
             input.type = 'text';
             input.maxLength = 1;
+            input.style.width = '20px'; // Reduza o tamanho da célula
+            input.style.height = '20px'; // Reduza o tamanho da célula
 
             if (sudokuBoard[i][j] !== 0) {
                 input.value = sudokuBoard[i][j];
