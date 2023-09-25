@@ -41,6 +41,12 @@ function generateSudoku() {
     return table;
 }
 
+// Função para verificar se há duplicatas em uma matriz
+function hasDuplicates(array) {
+    const uniqueValues = new Set(array);
+    return uniqueValues.size !== array.length;
+}
+
 function isSudokuSolved() {
     const inputs = document.querySelectorAll('input[type="number"]');
     const puzzle = [];
@@ -56,15 +62,18 @@ function isSudokuSolved() {
         puzzle[rowIndex - 1].push(isNaN(inputValue) ? 0 : inputValue);
     }
 
-    // Verificar linhas e colunas em busca de duplicatas
+    // Verificar linhas em busca de duplicatas
     for (let i = 0; i < 5; i++) {
         const row = puzzle[i];
-        const column = puzzle.map(row => row[i]);
+        if (hasDuplicates(row)) {
+            return false;
+        }
+    }
 
-        if (
-            hasDuplicates(row) ||
-            hasDuplicates(column)
-        ) {
+    // Verificar colunas em busca de duplicatas
+    for (let i = 0; i < 5; i++) {
+        const column = puzzle.map(row => row[i]);
+        if (hasDuplicates(column)) {
             return false;
         }
     }
