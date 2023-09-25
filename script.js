@@ -93,24 +93,23 @@ function isSudokuSolved() {
     return true;
 }
 
-// Function to display the enigma when Sudoku is solved
-function displayEnigma() {
-    const enigmaSection = document.getElementById('enigma-section');
-    const enigmaText = document.getElementById('enigma-text');
-    enigmaText.innerText = 'Congratulations! You solved the Sudoku. Here is your enigma: [Your enigma text here]';
-    enigmaSection.style.display = 'block';
-}
-
 // Event listener for the "Sudoku" button
 document.getElementById('start-button').addEventListener('click', function () {
     createSudokuBoard();
     document.getElementById('sudoku-section').style.display = 'block';
     document.getElementById('start-section').style.display = 'none';
-});
 
-// Event listener for checking if Sudoku is solved
-document.getElementById('sudoku-board').addEventListener('input', function () {
+    // Check if Sudoku is solved when the board is created
     if (isSudokuSolved()) {
         displayEnigma();
     }
 });
+
+// Event listener for checking if Sudoku is solved
+function checkSudokuSolved() {
+    if (isSudokuSolved()) {
+        displayEnigma();
+    }
+}
+
+document.getElementById('sudoku-board').addEventListener('input', checkSudokuSolved);
