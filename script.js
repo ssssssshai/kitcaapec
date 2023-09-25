@@ -1,4 +1,4 @@
-// Matriz para armazenar o tabuleiro de Sudoku
+/ Matriz para armazenar o tabuleiro de Sudoku
 let sudokuBoard = [
     [5, 3, 0, 0, 7, 0, 0, 0, 0],
     [6, 0, 0, 1, 9, 5, 0, 0, 0],
@@ -11,7 +11,7 @@ let sudokuBoard = [
     [0, 0, 0, 0, 8, 0, 0, 7, 9]
 ];
 
-// Function to create the Sudoku board in HTML
+// Função para criar o tabuleiro de Sudoku em HTML
 function createSudokuBoard() {
     const sudokuTable = document.getElementById('sudoku-board');
 
@@ -23,7 +23,7 @@ function createSudokuBoard() {
             input.type = 'text';
             input.maxLength = 1;
             input.addEventListener('input', function () {
-                // Update the sudokuBoard with the user's input
+                // Atualize o sudokuBoard com a entrada do usuário
                 sudokuBoard[i][j] = Number(input.value);
             });
 
@@ -92,7 +92,9 @@ function isSudokuSolved() {
     return true;
 }
 
-// Event listener for the "Sudoku" button
+}
+
+// Event listener para o botão "Sudoku"
 document.getElementById('start-button').addEventListener('click', function () {
     createSudokuBoard();
     document.getElementById('sudoku-section').style.display = 'block';
@@ -100,17 +102,4 @@ document.getElementById('start-button').addEventListener('click', function () {
 
     // Remova qualquer enigma anteriormente exibido
     document.getElementById('enigma-section').style.display = 'none';
-
-    // Verifique se o Sudoku está resolvido quando o tabuleiro é criado
-    if (isSudokuSolved()) {
-        displayEnigma();
-    }
 });
-
-// Event listener for checking if Sudoku is solved
-document.getElementById('sudoku-board').addEventListener('input', function () {
-    if (isSudokuSolved()) {
-        displayEnigma();
-    }
-});
-
