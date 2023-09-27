@@ -11,7 +11,7 @@ body {
 }
 
 /* Styles for the Sudoku section */
-#sudokuContainer {
+#sudoku-container {
     text-align: center;
     padding: 10px;
     background-color: #fff;
