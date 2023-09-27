@@ -59,7 +59,7 @@ function isSudokuSolved() {
 }
 
 function isValid(puzzle) {
-    return isValidRow(puzzle) && isValidColumn(puzzle) && isValidSubgrid(puzzle);
+    return isValidRow(puzzle) && isValidColumn(puzzle);
 }
 
 function isValidRow(puzzle) {
@@ -80,23 +80,6 @@ function isValidColumn(puzzle) {
         }
         if (hasDuplicates(column)) {
             return false;
-        }
-    }
-    return true;
-}
-
-function isValidSubgrid(puzzle) {
-    for (let row = 0; row < 5; row += 2) {
-        for (let col = 0; col < 5; col += 2) {
-            const subgrid = [];
-            for (let i = row; i < row + 2; i++) {
-                for (let j = col; j < col + 2; j++) {
-                    subgrid.push(puzzle[i * 5 + j]);
-                }
-            }
-            if (hasDuplicates(subgrid)) {
-                return false;
-            }
         }
     }
     return true;
