@@ -1,3 +1,5 @@
+document.addEventListener('DOMContentLoaded', function() {
+
 // Variável para armazenar o enigma
 let enigma = '';
 
@@ -106,3 +108,5 @@ function showSudokuSection() {
 
 // Event listener para iniciar o Sudoku quando o botão for clicado
 document.getElementById('start-button').addEventListener('click', showSudokuSection);
+
+});
