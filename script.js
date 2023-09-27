@@ -66,27 +66,34 @@ function isSudokuSolved() {
         revealEnigma();
     }
 }
+    
 function isValid(puzzle) {
-    return isValidRow(puzzle) && isValidColumn(puzzle);
+    return isValidRows(puzzle) && isValidColumns(puzzle);
 }
 
-function isValidRow(puzzle) {
+function isValidRows(puzzle) {
     for (let i = 0; i < 5; i++) {
-        const row = puzzle.slice(i * 5, (i + 1) * 5);
-        if (hasDuplicates(row)) {
+        const row = puzzle[i];
+        const rowSet = new Set(row);
+
+        // Check if the row contains the numbers 1 to 5 exactly once
+        if (rowSet.size !== 5 || !rowSet.has(1) || !rowSet.has(2) || !rowSet.has(3) || !rowSet.has(4) || !rowSet.has(5)) {
             return false;
         }
     }
     return true;
 }
 
-function isValidColumn(puzzle) {
+function isValidColumns(puzzle) {
     for (let i = 0; i < 5; i++) {
         const column = [];
         for (let j = 0; j < 5; j++) {
-            column.push(puzzle[j * 5 + i]);
+            column.push(puzzle[j][i]);
         }
-        if (hasDuplicates(column)) {
+        const columnSet = new Set(column);
+
+        // Check if the column contains the numbers 1 to 5 exactly once
+        if (columnSet.size !== 5 || !columnSet.has(1) || !columnSet.has(2) || !columnSet.has(3) || !columnSet.has(4) || !columnSet.has(5)) {
             return false;
         }
     }
