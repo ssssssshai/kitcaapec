@@ -1,5 +1,4 @@
 document.addEventListener('DOMContentLoaded', function () {
-
     // Variável para armazenar o enigma
     let enigma = '';
 
@@ -46,10 +45,16 @@ document.addEventListener('DOMContentLoaded', function () {
     function isSudokuSolved() {
         const inputs = document.querySelectorAll('input[type="number"]');
         const puzzle = [];
+        let hasError = false;
 
         for (let i = 0; i < inputs.length; i++) {
             const inputValue = parseInt(inputs[i].value, 10);
             puzzle.push(inputValue);
+
+            // Verifica se o valor é diferente de zero (célula vazia)
+            if (inputValue !== 0) {
+                inputs[i].classList.remove('error');
+            }
         }
 
         // Verificar linhas em busca de duplicatas
@@ -57,7 +62,8 @@ document.addEventListener('DOMContentLoaded', function () {
             const row = puzzle.slice(i * 5, (i + 1) * 5);
             if (hasDuplicates(row)) {
                 alert('Sudoku incorreto. Tente novamente!');
-                return;
+                hasError = true;
+                break;
             }
         }
 
@@ -69,12 +75,15 @@ document.addEventListener('DOMContentLoaded', function () {
             }
             if (hasDuplicates(column)) {
                 alert('Sudoku incorreto. Tente novamente!');
-                return;
+                hasError = true;
+                break;
             }
         }
 
-        // Se chegou até aqui, o Sudoku está resolvido corretamente
-        revealEnigma();
+        // Se não houver erros, o Sudoku está resolvido corretamente
+        if (!hasError) {
+            revealEnigma();
+        }
     }
 
     function revealEnigma() {
@@ -110,7 +119,8 @@ document.addEventListener('DOMContentLoaded', function () {
     function hasDuplicates(array) {
         const values = new Set();
         for (const item of array) {
-            if (values.has(item)) {
+            if (values.has(item) && item !== 0) { // Ignora células vazias
+                highlightDuplicates(array);
                 return true;
             }
             values.add(item);
@@ -118,7 +128,16 @@ document.addEventListener('DOMContentLoaded', function () {
         return false;
     }
 
+    // Função para destacar células com duplicatas
+    function highlightDuplicates(array) {
+        const inputs = document.querySelectorAll('input[type="number"]');
+        for (let i = 0; i < array.length; i++) {
+            if (array[i] !== 0) {
+                inputs[i].classList.add('error');
+            }
+        }
+    }
+
     // Event listener para iniciar o Sudoku quando o botão for clicado
     document.getElementById('start-button').addEventListener('click', showSudokuSection);
-
 });
