@@ -44,7 +44,7 @@ document.addEventListener('DOMContentLoaded', function () {
 function isSudokuSolved() {
     const inputs = document.querySelectorAll('input[type="number"]');
     const puzzle = [];
-    
+
     let rowIndex = 0;
     let row = [];
 
@@ -59,13 +59,14 @@ function isSudokuSolved() {
         }
     }
 
-    // Verificar linhas, colunas e submatrizes 2x2 em busca de duplicatas
-    if (!isValid(puzzle)) {
-        alert('Sudoku incorreto. Tente novamente!');
-    } else {
+    // Verificar linhas e colunas em busca de duplicatas
+    if (isValid(puzzle) && isValidColumns(puzzle)) {
         revealEnigma();
+    } else {
+        alert('Sudoku incorreto. Tente novamente!');
     }
 }
+
     
 function isValid(puzzle) {
     return isValidRows(puzzle) && isValidColumns(puzzle);
