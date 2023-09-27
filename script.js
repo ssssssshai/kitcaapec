@@ -50,7 +50,18 @@ function isSudokuSolved() {
 
     for (let i = 0; i < inputs.length; i++) {
         const inputValue = parseInt(inputs[i].value, 10);
-        row.push(inputValue);
+        
+        // Check if the cell has the "given" class (preset number)
+        if (inputs[i].classList.contains('given')) {
+            row.push(inputValue);
+        } else {
+            // Handle empty cells (non-preset numbers)
+            if (inputValue < 1 || inputValue > 5 || isNaN(inputValue)) {
+                alert('Sudoku incorreto. Preencha todas as células corretamente!');
+                return;
+            }
+            row.push(inputValue);
+        }
 
         if (row.length === 5) {
             puzzle.push(row);
