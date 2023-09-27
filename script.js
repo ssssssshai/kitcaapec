@@ -50,25 +50,30 @@ function isSudokuSolved() {
         puzzle.push(inputValue);
     }
 
-    // Verificar linhas e colunas em busca de duplicatas
+    // Verificar linhas em busca de duplicatas
     for (let i = 0; i < 5; i++) {
         const row = puzzle.slice(i * 5, (i + 1) * 5);
-        const column = [];
-        for (let j = 0; j < 5; j++) {
-            column.push(puzzle[j * 5 + i]);
-        }
-
-        if (hasDuplicates(row) || hasDuplicates(column)) {
+        if (hasDuplicates(row)) {
             alert('Sudoku incorreto. Tente novamente!');
             return;
         }
     }
+
+    // Verificar colunas em busca de duplicatas
+    for (let i = 0; i < 5; i++) {
+        const column = [];
+        for (let j = 0; j < 5; j++) {
+            column.push(puzzle[j * 5 + i]);
+        }
+        if (hasDuplicates(column)) {
+            alert('Sudoku incorreto. Tente novamente!');
+            return;
+        }
     }
 
     // Se chegou até aqui, o Sudoku está resolvido corretamente
     revealEnigma();
 }
-
 
 function revealEnigma() {
     // Esta função deve mostrar o enigma
