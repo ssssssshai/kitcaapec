@@ -44,10 +44,19 @@ document.addEventListener('DOMContentLoaded', function () {
 function isSudokuSolved() {
     const inputs = document.querySelectorAll('input[type="number"]');
     const puzzle = [];
+    
+    let rowIndex = 0;
+    let row = [];
 
     for (let i = 0; i < inputs.length; i++) {
         const inputValue = parseInt(inputs[i].value, 10);
-        puzzle.push(inputValue);
+        row.push(inputValue);
+
+        if (row.length === 5) {
+            puzzle.push(row);
+            row = [];
+            rowIndex++;
+        }
     }
 
     // Verificar linhas, colunas e submatrizes 2x2 em busca de duplicatas
@@ -57,7 +66,6 @@ function isSudokuSolved() {
         revealEnigma();
     }
 }
-
 function isValid(puzzle) {
     return isValidRow(puzzle) && isValidColumn(puzzle);
 }
