@@ -41,50 +41,67 @@ document.addEventListener('DOMContentLoaded', function () {
         return table;
     }
 
-    // Função para verificar se o Sudoku está resolvido corretamente
-    function isSudokuSolved() {
-        const inputs = document.querySelectorAll('input[type="number"]');
-        const puzzle = [];
-        let hasError = false;
+function isSudokuSolved() {
+    const inputs = document.querySelectorAll('input[type="number"]');
+    const puzzle = [];
 
-        for (let i = 0; i < inputs.length; i++) {
-            const inputValue = parseInt(inputs[i].value, 10);
-            puzzle.push(inputValue);
+    for (let i = 0; i < inputs.length; i++) {
+        const inputValue = parseInt(inputs[i].value, 10);
+        puzzle.push(inputValue);
+    }
 
-            // Verifica se o valor é diferente de zero (célula vazia)
-            if (inputValue !== 0) {
-                inputs[i].classList.remove('error');
-            }
-        }
+    // Verificar linhas, colunas e submatrizes 2x2 em busca de duplicatas
+    if (!isValid(puzzle)) {
+        alert('Sudoku incorreto. Tente novamente!');
+    } else {
+        revealEnigma();
+    }
+}
 
-        // Verificar linhas em busca de duplicatas
-        for (let i = 0; i < 5; i++) {
-            const row = puzzle.slice(i * 5, (i + 1) * 5);
-            if (hasDuplicates(row)) {
-                alert('Sudoku incorreto. Tente novamente!');
-                hasError = true;
-                break;
-            }
-        }
+function isValid(puzzle) {
+    return isValidRow(puzzle) && isValidColumn(puzzle) && isValidSubgrid(puzzle);
+}
 
-        // Verificar colunas em busca de duplicatas
-        for (let i = 0; i < 5; i++) {
-            const column = [];
-            for (let j = 0; j < 5; j++) {
-                column.push(puzzle[j * 5 + i]);
-            }
-            if (hasDuplicates(column)) {
-                alert('Sudoku incorreto. Tente novamente!');
-                hasError = true;
-                break;
-            }
-        }
-
-        // Se não houver erros, o Sudoku está resolvido corretamente
-        if (!hasError) {
-            revealEnigma();
+function isValidRow(puzzle) {
+    for (let i = 0; i < 5; i++) {
+        const row = puzzle.slice(i * 5, (i + 1) * 5);
+        if (hasDuplicates(row)) {
+            return false;
         }
     }
+    return true;
+}
+
+function isValidColumn(puzzle) {
+    for (let i = 0; i < 5; i++) {
+        const column = [];
+        for (let j = 0; j < 5; j++) {
+            column.push(puzzle[j * 5 + i]);
+        }
+        if (hasDuplicates(column)) {
+            return false;
+        }
+    }
+    return true;
+}
+
+function isValidSubgrid(puzzle) {
+    for (let row = 0; row < 5; row += 2) {
+        for (let col = 0; col < 5; col += 2) {
+            const subgrid = [];
+            for (let i = row; i < row + 2; i++) {
+                for (let j = col; j < col + 2; j++) {
+                    subgrid.push(puzzle[i * 5 + j]);
+                }
+            }
+            if (hasDuplicates(subgrid)) {
+                return false;
+            }
+        }
+    }
+    return true;
+}
+
 
     function revealEnigma() {
         // Esta função deve mostrar o enigma
