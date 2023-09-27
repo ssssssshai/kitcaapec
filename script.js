@@ -50,18 +50,14 @@ function isSudokuSolved() {
 
     for (let i = 0; i < inputs.length; i++) {
         const inputValue = parseInt(inputs[i].value, 10);
-        
-        // Check if the cell has the "given" class (preset number)
-        if (inputs[i].classList.contains('given')) {
-            row.push(inputValue);
-        } else {
-            // Handle empty cells (non-preset numbers)
-            if (inputValue < 1 || inputValue > 5 || isNaN(inputValue)) {
-                alert('Sudoku incorreto. Preencha todas as células corretamente!');
-                return;
-            }
-            row.push(inputValue);
+
+        // Handle empty cells (non-preset numbers)
+        if (inputValue < 1 || inputValue > 5 || isNaN(inputValue)) {
+            alert('Sudoku incorreto. Preencha todas as células corretamente!');
+            return;
         }
+
+        row.push(inputValue);
 
         if (row.length === 5) {
             puzzle.push(row);
@@ -71,18 +67,13 @@ function isSudokuSolved() {
     }
 
     // Check if the puzzle matches the known solution
-    if (JSON.stringify(puzzle) === JSON.stringify([
-        [5, 4, 2, 1, 3],
-        [2, 5, 4, 3, 1],
-        [4, 1, 3, 5, 2],
-        [1, 3, 5, 2, 4],
-        [3, 2, 1, 4, 5]
-    ])) {
+    if (isValid(puzzle)) {
         revealEnigma();
     } else {
         alert('Sudoku incorreto. Tente novamente!');
     }
 }
+
 
 
     
