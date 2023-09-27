@@ -70,13 +70,20 @@ function isSudokuSolved() {
         }
     }
 
-    // Verificar linhas e colunas em busca de duplicatas
-    if (isValid(puzzle) && isValidColumns(puzzle)) {
+    // Check if the puzzle matches the known solution
+    if (JSON.stringify(puzzle) === JSON.stringify([
+        [5, 4, 2, 1, 3],
+        [2, 5, 4, 3, 1],
+        [4, 1, 3, 5, 2],
+        [1, 3, 5, 2, 4],
+        [3, 2, 1, 4, 5]
+    ])) {
         revealEnigma();
     } else {
         alert('Sudoku incorreto. Tente novamente!');
     }
 }
+
 
     
 function isValid(puzzle) {
