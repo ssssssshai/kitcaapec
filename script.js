@@ -1,119 +1,125 @@
-// Variável para armazenar o enigma
-let enigma = '';
+document.addEventListener("DOMContentLoaded", function () {
+  const sudokuBoard = [
+    [5, 0, 0, 0, 0],
+    [0, 3, 0, 0, 5],
+    [0, 1, 0, 0, 0],
+    [0, 4, 0, 0, 0],
+    [0, 0, 3, 0, 0],
+  ];
 
-// Função para gerar um Sudoku 5x5 aleatório
-function generateSudoku() {
-    const puzzle = [
-        [5, 0, 0, 0, 0],
-        [0, 3, 0, 0, 5],
-        [0, 1, 0, 0, 0],
-        [0, 4, 0, 0, 0],
-        [0, 0, 3, 0, 0]
-    ];
+  const sudokuContainer = document.getElementById("sudoku-container");
+  const startButton = document.getElementById("start-button");
+  const verifyButton = document.getElementById("verify-button");
+  const enigmaSection = document.getElementById("enigma-section");
+  const enigmaText = document.getElementById("enigma-text");
 
-    enigma = 'Você encontrou o E, agora ache o Ê!';
+  let sudokuInput = [];
 
-    const table = document.createElement('table');
+  // Função para criar a grade Sudoku
+  function createSudoku() {
+    let sudokuHtml = "<table>";
 
-    for (let i = 0; i < 5; i++) {
-        const row = document.createElement('tr');
+    for (let i = 0; i < sudokuBoard.length; i++) {
+      sudokuHtml += "<tr>";
 
-        for (let j = 0; j < 5; j++) {
-            const cell = document.createElement('td');
-            if (puzzle[i][j] !== 0) {
-                cell.textContent = puzzle[i][j];
-                cell.classList.add('given');
-            } else {
-                const input = document.createElement('input');
-                input.setAttribute('type', 'number');
-                input.setAttribute('min', '1');
-                input.setAttribute('max', '5');
-                input.setAttribute('size', '1');
-                cell.appendChild(input);
-            }
-            row.appendChild(cell);
+      for (let j = 0; j < sudokuBoard[i].length; j++) {
+        if (sudokuBoard[i][j] === 0) {
+          sudokuHtml += `<td><input type="text" class="sudoku-input" id="cell-${i}-${j}" maxlength="1"></td>`;
+        } else {
+          sudokuHtml += `<td>${sudokuBoard[i][j]}</td>`;
         }
+      }
 
-        table.appendChild(row);
+      sudokuHtml += "</tr>";
     }
 
-    return table;
-}
+    sudokuHtml += "</table>";
+    sudokuContainer.innerHTML = sudokuHtml;
+  }
 
-// Função para verificar se o Sudoku está resolvido corretamente
-function isSudokuSolved() {
-    const inputs = document.querySelectorAll('input[type="number"]');
-    const puzzle = [];
+  // Função para verificar se o Sudoku está correto
+  function checkSudoku() {
+    for (let i = 0; i < sudokuBoard.length; i++) {
+      for (let j = 0; j < sudokuBoard[i].length; j++) {
+        const inputElement = document.getElementById(`cell-${i}-${j}`);
+        if (inputElement) {
+          const userInput = parseInt(inputElement.value);
 
-    for (let i = 0; i < inputs.length; i++) {
-        const inputValue = parseInt(inputs[i].value, 10);
-        puzzle.push(inputValue);
-    }
-
-    // Verificar linhas e colunas em busca de duplicatas
-    for (let i = 0; i < 5; i++) {
-        const row = puzzle.slice(i * 5, (i + 1) * 5);
-        const column = [];
-        for (let j = 0; j < 5; j++) {
-            column.push(puzzle[j * 5 + i]);
-        }
-
-        if (hasDuplicates(row) || hasDuplicates(column)) {
-            alert('Sudoku incorreto. Tente novamente!');
+          if (isNaN(userInput) || userInput === 0) {
+            alert("Por favor, preencha todos os espaços com números válidos.");
             return;
+          }
+
+          sudokuInput[i][j] = userInput;
         }
+      }
     }
 
-    // Verificar subgrids de 2x2 em busca de duplicatas
-    for (let i = 0; i < 5; i += 2) {
-        for (let j = 0; j < 5; j += 2) {
-            const subgrid = [];
-            for (let x = i; x < i + 2; x++) {
-                for (let y = j; y < j + 2; y++) {
-                    subgrid.push(puzzle[x * 5 + y]);
-                }
-            }
+    // Lógica para verificar se o Sudoku está correto
+    const isSolved = checkSudokuSolution();
 
-            if (hasDuplicates(subgrid)) {
-                alert('Sudoku incorreto. Tente novamente!');
-                return;
-            }
-        }
+    if (isSolved) {
+      enigmaText.textContent = "Parabéns! Você encontrou o 'E'. Vá em frente!";
+      enigmaSection.style.display = "block";
+    } else {
+      enigmaText.textContent = "Tente novamente.";
+      enigmaSection.style.display = "block";
     }
+  }
 
-    // Se chegou até aqui, o Sudoku está resolvido corretamente
-    revealEnigma();
-}
+  // Event listener para o botão "Iniciar Sudoku"
+  startButton.addEventListener("click", function () {
+    createSudoku();
+    sudokuInput = Array.from({ length: 5 }, () => Array(5).fill(0));
+    sudokuSection.style.display = "block";
+    startSection.style.display = "none";
+  });
 
+  // Event listener para o botão "Verificar"
+  verifyButton.addEventListener("click", function () {
+    checkSudoku();
+  });
 
-function revealEnigma() {
-    // Esta função deve mostrar o enigma
-    // Você pode exibir o enigma na seção de enigma ou de outra forma que preferir
-    const enigmaText = document.getElementById('enigma-text');
-    enigmaText.textContent = enigma;
-    document.getElementById('enigma-section').style.display = 'block';
-}
+  // Função para verificar a solução do Sudoku
+  function checkSudokuSolution() {
+    // Implemente sua lógica de verificação aqui
+    // Compare sudokuInput com a solução correta (sudokuBoard)
+    const rows = sudokuInput;
+    const columns = transpose(sudokuInput);
+    const subgrids = getSubgrids(sudokuInput);
 
-function showSudokuSection() {
-    const startSection = document.getElementById('start-section');
-    const sudokuSection = document.getElementById('sudoku-section');
-    const sudokuTable = generateSudoku();
+    return isSolved(rows) && isSolved(columns) && isSolved(subgrids);
+  }
 
-    startSection.style.display = 'none';
-    sudokuSection.style.display = 'block';
-    sudokuSection.innerHTML = '';
-    sudokuSection.appendChild(sudokuTable);
+  // Função para verificar se um array de Sudoku está correto
+  function isSolved(array) {
+    for (let i = 0; i < array.length; i++) {
+      if (array[i].sort().join("") !== "12345") {
+        return false;
+      }
+    }
+    return true;
+  }
 
-    // Adicione o botão de verificar
-    const checkButton = document.createElement('button');
-    checkButton.setAttribute('id', 'check-button');
-    checkButton.textContent = 'Verificar';
-    sudokuSection.appendChild(checkButton);
+  // Função para transpor a matriz
+  function transpose(matrix) {
+    return matrix[0].map((_, i) => matrix.map((row) => row[i]));
+  }
 
-    checkButton.addEventListener('click', function () {
-        isSudokuSolved();
-    });
-}
-
-// Event listener para iniciar o Sudoku quando o botão for clicado
-document.getElementById('start-button').addEventListener('click', showSudokuSection);
+  // Função para obter subgrids 3x3
+  function getSubgrids(matrix) {
+    const subgrids = [];
+    for (let i = 0; i < 5; i += 3) {
+      for (let j = 0; j < 5; j += 3) {
+        const subgrid = [];
+        for (let x = 0; x < 3; x++) {
+          for (let y = 0; y < 3; y++) {
+            subgrid.push(matrix[i + x][j + y]);
+          }
+        }
+        subgrids.push(subgrid);
+      }
+    }
+    return subgrids;
+  }
+});
