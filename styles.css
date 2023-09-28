@@ -29,10 +29,10 @@ body {
 
 /* Styles for Sudoku cells */
 #sudoku-container td {
-    width: 20px; /* Reduce the width of cells */
-    height: 20px; /* Reduce the height of cells */
+    width: 10px; /* Reduce the width of cells */
+    height: 10px; /* Reduce the height of cells */
     text-align: center;
-    font-size: 12px; /* Reduce the font size */
+    font-size: 10px; /* Reduce the font size */
     border: 1px solid #ddd;
     vertical-align: middle;
     white-space: nowrap;
