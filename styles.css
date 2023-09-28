@@ -17,7 +17,7 @@ body {
     background-color: #fff;
     border-radius: 5px;
     width: auto;
-    max-width: 80%;
+    max-width: 100%;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
@@ -32,10 +32,9 @@ body {
     width: 5px; /* Reduce the width of cells */
     height: 10px; /* Reduce the height of cells */
     text-align: center;
-    font-size: 10px; /* Reduce the font size */
+    font-size: 8px; /* Reduce the font size */
     border: 1px solid #ddd;
     vertical-align: middle;
-    white-space: nowrap;
 }
 
 /* Styles for given cells */
