@@ -17,17 +17,18 @@ body {
     background-color: #fff;
     border-radius: 5px;
     width: auto; /* Allow it to adjust to content */
-    max-width: 80%; /* Limit the maximum width of the table */
+    max-width: 80%; /* Limit the maximum width of the container */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 /* Styles for Sudoku cells */
-#sudokuContainer table {
+#sudoku-container table {
     border-collapse: collapse;
     margin: 0 auto;
     width: 100%; /* Adjusted to 100% to fit the container */
 }
 
-#sudokuContainer td {
+#sudoku-container td {
     width: 30px;
     height: 30px;
     text-align: center;
@@ -36,6 +37,6 @@ body {
     border: 1px solid #ddd;
 }
 
-#sudokuContainer td.given {
+#sudoku-container td.given {
     background-color: #eee;
 }
