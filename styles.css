@@ -7,7 +7,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 100vh; /* Change height to min-height for better sizing */
+    min-height: 100vh;
 }
 
 /* Styles for the Sudoku section */
@@ -16,27 +16,29 @@ body {
     padding: 10px;
     background-color: #fff;
     border-radius: 5px;
-    width: auto; /* Allow it to adjust to content */
-    max-width: 80%; /* Limit the maximum width of the container */
+    width: auto;
+    max-width: 80%;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-/* Styles for Sudoku cells */
+/* Styles for Sudoku table */
 #sudoku-container table {
     border-collapse: collapse;
     margin: 0 auto;
-    width: 100%; /* Adjusted to 100% to fit the container */
 }
 
+/* Styles for Sudoku cells */
 #sudoku-container td {
     width: 30px;
     height: 30px;
     text-align: center;
-    vertical-align: middle;
     font-size: 16px;
     border: 1px solid #ddd;
+    vertical-align: middle;
+    white-space: nowrap; /* Prevents line break */
 }
 
+/* Styles for given cells */
 #sudoku-container td.given {
     background-color: #eee;
 }
