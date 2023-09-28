@@ -8,19 +8,19 @@ document.addEventListener("DOMContentLoaded", function () {
     const startButton = document.getElementById("start-button");
 
     let sudoku = [
-        [null, null, null, 1, 2],
-        [2, null, null, null, null],
-        [null, 1, null, null, null],
-        [null, null, 2, null, null],
-        [null, null, null, null, 1],
+        [null, null, null, 1, 5,
+        [1, null, null, null, 4],
+        [null, 3, null, null, null],
+        [null, null, 5, null, null],
+        [3, null, null, null, 1],
     ];
 
     let solution = [
-        [3, 4, 5, 1, 2],
-        [2, 5, 1, 3, 4],
-        [4, 1, 3, 5, 2],
-        [5, 3, 2, 4, 1],
-        [1, 2, 4, 2, 3],
+        [2, 4, 3, 1, 5],
+        [1, 5, 2, 3, 4],
+        [5, 3, 1, 4, 2],
+        [4, 1, 5, 2, 3],
+        [3, 2, 4, 5, 1],
     ];
 
     let currentSudoku = JSON.parse(JSON.stringify(sudoku));
